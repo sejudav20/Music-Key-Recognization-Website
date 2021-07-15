@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Upload Music Page</title>
+  </head>
+  <body>
+    <h1>Upload or Record</h1><br>
+    <p>Welcome please upload or record the music you want to recognize the key for down below</p><br>
+    <form method="POST">
+        <fieldset name="Upload File">
+        <label for="music_file">Upload a local file of no more than 30 seconds</label>
+        <input type="file" id="music_file" name="music_file" accept="audio/*"><br>
+        <input type="submit">
+        </fieldset>
+    </form><br>
+    <p>or...</p><br>
+    <form method="POST">
+        <fieldset name="Record">
+        <label for="record_file">record music</label>
+        <input type="file" id="record_file" name="record_file" accept="audio/*"><br>
+        <input type="submit">
+        </fieldset>
+    </form><br>
+  </body>
+</html>

@@ -1,26 +1,130 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<link rel="shortcut icon" href="#">
+
+<head>
     <meta charset="utf-8">
     <title>Upload Music Page</title>
-  </head>
-  <body>
+</head>
+{% load static %}
+
+<body>
     <h1>Upload or Record</h1><br>
     <p>Welcome please upload or record the music you want to recognize the key for down below</p><br>
     <form method="POST">
+        {% csrf_token %}
         <fieldset name="Upload File">
-        <label for="music_file">Upload a local file of no more than 30 seconds</label>
-        <input type="file" id="music_file" name="music_file" accept="audio/*"><br>
-        <input type="submit">
+            <label for="music_file">Upload a local file of no more than 30 seconds</label>
+            <input type="file" id="music_file" name="music_file" accept="audio/*" required><br>
+            <input type="submit">
         </fieldset>
     </form><br>
     <p>or...</p><br>
+
     <form method="POST">
+        {% csrf_token %}
         <fieldset name="Record">
-        <label for="record_file">record music</label>
-        <input type="file" id="record_file" name="record_file" accept="audio/*"><br>
-        <input type="submit">
+            <label for="record_file">record music</label> <br>
+            <p><small id="time">0:00</small></p>
+            <button type="button" id="recordButton">Start Recording</button>
+            <button type="button" id="stopButton">Stop Recording</button>
+            <audio id="player" controls></audio><br>
+
+            <script>
+
+                var startTime;
+                var recordingState = "not"; //state is either not, paused, recording
+                const player = document.getElementById('player');
+                player.style.display = 'none';
+                const timeDisplay = document.getElementById('time');
+                const recordButton = document.getElementById('recordButton');
+                const stopButton = document.getElementById('stopButton')
+
+
+
+                const handleSuccess = function (stream) {
+                    const options = { mimeType: 'audio/webm' };
+                    var recordedMedia = [];
+                    const mediaRecorder = new MediaRecorder(stream, options);
+                    var timeIntreval;
+                    const getTime = function () {
+
+                        var date = new Date();
+                        var seconds = (Math.round((date.getTime() - startTime) / 1000))
+                        timeDisplay.innerHTML = "0 : " + seconds.toString() + " recording";
+                        if (seconds >= 30) {
+                            console.log("stop clicked");
+                            recordingState = "not"
+                            recordButton.innerHTML = "Record";
+                            clearInterval(timeIntreval);
+                            mediaRecorder.stop();
+                        }
+                    }
+
+                    recordButton.onclick = function () {
+                        console.log("recorder clicked");
+                        if (recordingState === "not") {
+
+                            recordingState = "recording";
+                            recordButton.innerHTML = "pause";
+                            recordedMedia = []
+                            const date = new Date();
+                            startTime = date.getTime();
+                            timeIntreval = setInterval(getTime, 500);
+
+                            mediaRecorder.start();
+                        } else if (recordingState === "paused") {
+                            recordingState = "recording";
+                            mediaRecorder.resume();
+                            recordButton.innerHTML = "pause";
+                            timeIntreval = setInterval(getTime, 500);
+                        } else {
+                            recordingState = "paused";
+                            mediaRecorder.pause();
+                            recordButton.innerHTML = "Resume";
+                            clearInterval(timeIntreval);
+                        }
+                    };
+
+                    stopButton.onclick = function () {
+                        console.log("stop clicked");
+                        recordingState = "not"
+                        recordButton.innerHTML = "Record";
+                        clearInterval(timeIntreval);
+                        mediaRecorder.stop();
+                    };
+
+
+                    mediaRecorder.ondataavailable = function (e) {
+
+                        getTime();
+                        recordedMedia.push(e.data);
+
+                    };
+                    mediaRecorder.onstop = function (e) {
+                        const blob = new Blob(recordedMedia, { 'type': 'audio/webm; codecs=opus' });
+                        console.log("data" + recordedMedia.toString());
+                        recordedMedia = [];
+                        var audioURL = window.URL.createObjectURL(blob);
+                        player.src = audioURL;
+                        player.style.display = 'block';
+
+
+                    }
+                };
+
+                let onError = function (err) {
+                    //error
+                }
+                navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                    .then(handleSuccess, onError);
+
+
+            </script>
+
+            <input type="submit">
         </fieldset>
     </form><br>
-  </body>
+</body>
+
 </html>

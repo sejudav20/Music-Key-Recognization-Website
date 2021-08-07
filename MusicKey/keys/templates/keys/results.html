@@ -5,6 +5,19 @@
     <title>Key Result Page</title>
   </head>
   <body>
-    <p>Welcome to the results page</p>
+    <h1>Results from uploaded audio</h1>
+    <br>
+    <br>
+    <p>The upload is in the key of <b id="key_display"> {{ key }}</b> 
+       <b id="mode_display"> {{mode}}</b></p>
+    <br>
+    <h2>Frequencies identified</h2>
+    <p>
+      <ol>
+      {% for note in notes%}
+      <li> {{note}}  </li>
+      {% endfor %}
+      </ol>
+    </p>
   </body>
 </html>

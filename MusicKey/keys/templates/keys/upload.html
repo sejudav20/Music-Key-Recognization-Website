@@ -26,38 +26,71 @@
         background-color: ivory;
         cursor: pointer;
     }
+    #cards{
+        display:inline-block;
+        text-align: center;
+        width:50%;
+        
+    }
     .box{
-
+        display:inline-block;
+        text-align: center;
+        
+        height:50%;
+        width: 100%;
         background-color:white;
         border: 0;
         border-radius: 15px;
+        
         box-shadow: 2px 2px 3px rgb(211, 210, 210);
     }
     .record_form{
+        
         display:inline-block;
-        padding-left: 0px;
+        padding: 100px;
+        padding-bottom: 85px;
+        margin-left:20px;
     }
     #record_icon{
         display:inline-block;
-        padding-right: 10px;
-        font-size:30px;
+        padding-right: 5px;
+        font-size:90px;
         color:darkgoldenrod;
+        
     }
     .upload_form{
         display:inline-block;
-        padding-left: 0px;
+        padding: 80px;
+        
+        
     }
+    
     #upload_icon{
         display:inline-block;
-        padding-right: 10px;
-        font-size:30px;
+        padding-right: 5px;
+        font-size:90px;
+        
+        color:darkgoldenrod;
+    }
+    .spotify_form{
+        display:inline-block;
+        padding: 80px;
+        
+        
+    }
+    
+    #spotify_icon{
+        display:inline-block;
+        padding-right: 5px;
+        font-size:90px;
+        
         color:darkgoldenrod;
     }
     .header{
       padding-left: 0px;
       padding-right: 0px;
       padding-bottom: 20px;
-      margin:0%;
+      margin-bottom:20px;
       width: 100%;  
       text-align: center;
       float: left;
@@ -68,27 +101,29 @@
     }
     </style>
 <body id="body">
-    <div class="header"><h1><i class="fa fa-music" style="color:darkgoldenrod;"></i> Key Recognizer</h1></div><br>
-    <p class="text">Welcome, please upload or record the music you want to recognize the key for down below</p><br>
-    <form action={% url 'keys:results_upload' %} method="POST" enctype="multipart/form-data">
+    <div class="header"><h1><i class="fa fa-music" style="color:darkgoldenrod; font-size: 30;"></i> Key Recognizer</h1></div><br><br><br>
+    <p class="text" style="padding-left: 65px;">Welcome, please upload or record the music you want to recognize the key for down below</p><br>
+    <div id="cards">
+    <form style="display:inline-block;" action={% url 'keys:results_upload' %} method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset name="Upload File" class="box">
+            <label for="upload_file" class="text">Upload Local File</label> <br>
             <i class="fa fa-file-audio-o" id="upload_icon"></i>
             <div class="upload_form">
-            <label for="music_file">Upload a local file of no more than 30 seconds</label>
+            <label for="music_file" style="display:inline-block;">Upload a local file<span style="color: firebrick; ">*</span>  <br> <small style="color: firebrick;">(*maximum of 30 seconds)</small></label>
+            <br>
             <input  class= "get_file" type="file" id="music_file" name="music_file" accept="audio/*" required><br>
+            <br>
             <input type="submit" class="button">
             </div>
         </fieldset>
     
-    </form><br>
-    <p>or...</p><br>
-
-    <form action={% url 'keys:results_record' %} method="POST" enctype="multipart/form-data">
+    </form>
+    <form  style="display:inline-block;" action={% url 'keys:results_record' %} method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <fieldset name="Record" class="box">
+        <fieldset name="record" class="box">
             
-            <label for="record_file" class="text">record and download</label> <br>
+            <label for="record_file" class="text">Record and Download</label> <br>
             <i class="fa fa-microphone" id="record_icon"></i>
             <div class="record_form">
             <p class="text"><small id="time">0:00</small></p>
@@ -101,6 +136,25 @@
             
         </fieldset>
     </form><br>
+
+    <form  style="display:inline-block;" action={% url 'keys:results_record' %} method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset name="Spotify" class="box">
+            
+            <label for="spotify_file" class="text">Find Key from Spotify</label> <br>
+            <i class="fa fa-spotify" id="spotify_icon"></i>
+            <div class="spotify_form">
+            <label for="sp_input">Enter a song id or url to find the songs key</label>>
+            <input type="text" id="sp_input">
+            <input type="submit" class="button">
+            </div>
+            
+        </fieldset>
+    </form><br>
+    
+
+    
+    </div>
     {% if error_message %}<p id="error_view"><strong>{{ error_message }}</strong></p>{% endif %}
 </body>
 <script>

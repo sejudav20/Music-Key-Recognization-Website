@@ -1,23 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Key Result Page</title>
-  </head>
-  <body>
-    <h1>Results from uploaded audio</h1>
+{%load static%}
+<head>
+  <meta charset="utf-8">
+  <title>Key Result Page</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  .card {
+    display:inline-block;
+    text-align: center;
+    padding:5px;
+    
+    
+    background-color: white;
+    border: 0;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 3px rgb(211, 210, 210);
+  }
+
+  #body {
+    background-color: lavender;
+    margin: 0;
+    text-align: center;
+  }
+
+  .header {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    float: left;
+    background-color: darkslateblue;
+    font-family: "Lucida Handwriting";
+    font-style: italic;
+    box-shadow: 7px 7px 10px grey;
+  }
+</style>
+
+<body id="body">
+  <div class="header">
+    <h1><i class="fa fa-music" style="color:darkgoldenrod; font-size: 30;"></i> Key Recognizer</h1>
+  </div><br><br><br>
+  <h3>Results from uploaded audio</h3>
+  <br>
+  <br>
+  <div style:"">
+    <div class="card">
+      <img src={% static 'keys/key.png' %} style="width:50%;">
+      <p>The upload is in the key of </p>
+      <h2 id="key_display"> {{ key }}</b>
+        
+        
+    </div>
     <br>
-    <br>
-    <p>The upload is in the key of <b id="key_display"> {{ key }}</b> 
-       <b id="mode_display"> {{mode}}</b></p>
-    <br>
-    <h2>Frequencies identified</h2>
+    <div class="card">
+    <h3>Top 5 Frequencies identified</h3>
     <p>
-      <ol>
+    <ol>
       {% for note in notes%}
-      <li> {{note}}  </li>
+      <li> {{note}} </li>
       {% endfor %}
-      </ol>
+    </ol>
     </p>
-  </body>
+  </div>
+  <br>
+  <a href="/keys/upload/" style="font-size: 18px; " >Recognize the key of another Song</a>
+  </div>
+</body>
+
 </html>

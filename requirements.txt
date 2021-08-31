@@ -1,4 +1,4 @@
-absl-py @ file:///C:/ci/absl-py_1623867338309/work
+
 alabaster==0.7.12
 appdirs==1.4.4
 argh==0.26.2
@@ -203,5 +203,3 @@ win-inet-pton @ file:///C:/ci/win_inet_pton_1605306165655/work
 wincertstore==0.2
 wrapt==1.12.1
 xgboost==1.4.2
-yapf @ file:///tmp/build/80754af9/yapf_1615749224965/work
-zipp @ file:///tmp/build/80754af9/zipp_1625570634446/work

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+{%load static%}
+<head>
+  <meta charset="utf-8">
+  <title>Key Result Page</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  .card {
+    display:inline-block;
+    text-align: center;
+    padding:5px;
+    
+    
+    background-color: white;
+    border: 0;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 3px rgb(211, 210, 210);
+  }
+
+  #body {
+    background-color: lavender;
+    margin: 0;
+    text-align: center;
+  }
+
+  .header {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    float: left;
+    background-color: darkslateblue;
+    font-family: "Lucida Handwriting";
+    font-style: italic;
+    box-shadow: 7px 7px 10px grey;
+  }
+</style>
+
+<body id="body">
+  <div class="header">
+    <h1><i class="fa fa-music" style="color:darkgoldenrod; font-size: 30;"></i> Key Recognizer</h1>
+  </div><br><br><br>
+  <h3>Results from Spotify</h3>
+  <br>
+  <br>
+  <div style:"">
+    <div class="card">
+      <img src={{image}} style="width:50%;">
+      
+      <h2 id="name_display"> {{ name }}</b>
+      <p>by {{ author }}</p>  
+        
+    </div>
+    <br>
+    <div class="card" style="padding-bottom: 26px;">
+    <h3 class="title">Preview MP3</h3>
+    {% if preview_url == None %}
+    <p>
+    The song does not have a preview available
+    </p>
+    {% else %}
+    <audio id="player" src={{preview_url}} controls></audio>
+    {% endif %}
+
+  </div>
+  
+
+  <div class="card">
+    <h3 class="title">Key</h3>
+    <p>The song is in the key of </p>
+    <h4 class="attribute">{{key}} {{mode}}</h4>
+  </div>
+
+  <div class="card">
+    <h3 class="title">Energy</h3>
+    
+    <h4 class="attribute">Energy: {{energy}}/10</h4>
+    <h4 class="attribute">Loudness: {{loudness}} db</h4>
+    
+  </div>
+  <div class="card">
+    <h3 class="title">Rhythm</h3>
+    
+    <h4 class="attribute">tempo: {{tempo}} beats per minute</h4>
+    <h4 class="attribute">time signature: {{time_sig}} beats per measure</h4>
+    
+  </div>
+  <br>
+  <a href="/keys/upload/" style="font-size: 18px; " >Recognize the key of another Song</a>
+  </div>
+</body>
+
+</html>

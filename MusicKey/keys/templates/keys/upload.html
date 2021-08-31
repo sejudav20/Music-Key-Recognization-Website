@@ -9,153 +9,184 @@
 {% load static %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-    #body{
-        background-color:lavender;
+    #body {
+        background-color: lavender;
         margin: 0;
     }
-    p{
-        font-family:sans-serif;
-    }
-    .text{font-family:sans-serif;}
 
-    .button{
+    p {
+        font-family: sans-serif;
+    }
+
+    .text {
+        font-family: sans-serif;
+    }
+
+    .button {
         border-radius: 12px;
-        font-size:10px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        font-size: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         padding: 10px 20px;
         background-color: ivory;
         cursor: pointer;
     }
-    #cards{
-        display:inline-block;
+
+    #cards {
+        display: inline-block;
         text-align: center;
-        width:50%;
-        
-    }
-    .box{
-        display:inline-block;
-        text-align: center;
-        
-        height:50%;
         width: 100%;
-        background-color:white;
+
+    }
+
+    .box {
+        display: inline-block;
+        text-align: center;
+
+        height: 50%;
+        width: 100%;
+        background-color: white;
         border: 0;
         border-radius: 15px;
-        
+
         box-shadow: 2px 2px 3px rgb(211, 210, 210);
     }
-    .record_form{
-        
-        display:inline-block;
-        padding: 100px;
-        padding-bottom: 85px;
-        margin-left:20px;
+
+    .record_form {
+
+        display: inline-block;
+        padding: 20px;
+        padding-bottom: 30px;
+        margin-left: 50px;
+        margin-right: 50px;
     }
-    #record_icon{
-        display:inline-block;
+
+    #record_icon {
+        display: inline-block;
         padding-right: 5px;
-        font-size:90px;
-        color:darkgoldenrod;
-        
+        font-size: 50px;
+        color: darkgoldenrod;
+
     }
-    .upload_form{
-        display:inline-block;
-        padding: 80px;
-        
-        
+
+    .upload_form {
+        display: inline-block;
+        padding: 30px;
+        padding-bottom: 40px;
+
+
+
     }
-    
-    #upload_icon{
-        display:inline-block;
+
+    #upload_icon {
+        display: inline-block;
         padding-right: 5px;
-        font-size:90px;
-        
-        color:darkgoldenrod;
+        font-size: 50px;
+
+        color: darkgoldenrod;
     }
-    .spotify_form{
-        display:inline-block;
-        padding: 80px;
-        
-        
+
+    .spotify_form {
+        display: inline-block;
+        padding: 40px;
+
+
     }
-    
-    #spotify_icon{
-        display:inline-block;
+
+    #error_view {
+        color: red;
+    }
+
+    #spotify_icon {
+        display: inline-block;
         padding-right: 5px;
-        font-size:90px;
-        
-        color:darkgoldenrod;
+        font-size: 50px;
+
+        color: darkgoldenrod;
     }
-    .header{
-      padding-left: 0px;
-      padding-right: 0px;
-      padding-bottom: 20px;
-      margin-bottom:20px;
-      width: 100%;  
-      text-align: center;
-      float: left;
-      background-color:darkslateblue;
-      font-family: "Lucida Handwriting";
-      font-style: italic;
-      box-shadow: 7px 7px 10px grey;
+
+    .header {
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+        float: left;
+        background-color: darkslateblue;
+        font-family: "Lucida Handwriting";
+        font-style: italic;
+        box-shadow: 7px 7px 10px grey;
     }
-    </style>
+</style>
+
 <body id="body">
-    <div class="header"><h1><i class="fa fa-music" style="color:darkgoldenrod; font-size: 30;"></i> Key Recognizer</h1></div><br><br><br>
-    <p class="text" style="padding-left: 65px;">Welcome, please upload or record the music you want to recognize the key for down below</p><br>
+    <div class="header">
+        <h1><i class="fa fa-music" style="color:darkgoldenrod; font-size: 30;"></i> Key Recognizer</h1>
+    </div><br><br><br>
+    <p class="text" style="padding-left: 65px;">Welcome, please upload or record the music you want to recognize the key
+        for down below</p><br>
     <div id="cards">
-    <form style="display:inline-block;" action={% url 'keys:results_upload' %} method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset name="Upload File" class="box">
-            <label for="upload_file" class="text">Upload Local File</label> <br>
-            <i class="fa fa-file-audio-o" id="upload_icon"></i>
-            <div class="upload_form">
-            <label for="music_file" style="display:inline-block;">Upload a local file<span style="color: firebrick; ">*</span>  <br> <small style="color: firebrick;">(*maximum of 30 seconds)</small></label>
-            <br>
-            <input  class= "get_file" type="file" id="music_file" name="music_file" accept="audio/*" required><br>
-            <br>
-            <input type="submit" class="button">
-            </div>
-        </fieldset>
-    
-    </form>
-    <form  style="display:inline-block;" action={% url 'keys:results_record' %} method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset name="record" class="box">
-            
-            <label for="record_file" class="text">Record and Download</label> <br>
-            <i class="fa fa-microphone" id="record_icon"></i>
-            <div class="record_form">
-            <p class="text"><small id="time">0:00</small></p>
-            
-            <button type="button" id="recordButton" class="button">Start Recording</button>
-            <button type="button" id="stopButton" class="button">Stop Recording</button>
-            <audio id="player" controls></audio><br>
-            </div>
-           
-            
-        </fieldset>
-    </form><br>
+        <form style="display:inline-block;margin-right: 50px; margin-bottom:20px;" action={% url 'keys:results_upload' %} 
+        method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset name="Upload File" class="box" style="margin-right:0px;">
+                <label for="upload_file" class="text">Upload Local File</label> <br>
+                <i class="fa fa-file-audio-o" id="upload_icon"></i>
+                <div class="upload_form">
+                    <label for="music_file" style="display:inline-block;">Upload a local file<span
+                            style="color: firebrick; ">*</span> <br> <small style="color: firebrick;">(*maximum of 30
+                            seconds)</small></label>
+                    <br>
+                    <input class="get_file" type="file" id="music_file" name="music_file" accept="audio/*"
+                        onchange=fileValidation>
+                    <br>
+                    <input type="submit" class="button">
+                </div>
+            </fieldset>
 
-    <form  style="display:inline-block;" action={% url 'keys:results_record' %} method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset name="Spotify" class="box">
-            
-            <label for="spotify_file" class="text">Find Key from Spotify</label> <br>
-            <i class="fa fa-spotify" id="spotify_icon"></i>
-            <div class="spotify_form">
-            <label for="sp_input">Enter a song id or url to find the songs key</label>>
-            <input type="text" id="sp_input">
-            <input type="submit" class="button">
-            </div>
-            
-        </fieldset>
-    </form><br>
-    
+        </form>
 
-    
+        <form style="display:inline-block;" action={% url 'keys:results_spotify' %} method="POST"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset name="Spotify" class="box">
+
+                <label for="spotify_file" class="text">Find Key from Spotify</label> <br>
+                <i class="fa fa-spotify" id="spotify_icon"></i>
+                <div class="spotify_form">
+                    <label for="sp_input">Enter a song id or url from spotify <br> to find the song's key</label>
+                    <br>
+                    <input type="text" name="sp_input" style="display:inline-block; margin-bottom: 10px;" id="sp_input"
+                        required>
+                    <br>
+
+                    <input type="submit" class="button">
+                    {% if error_message %}<p id="error_view"><strong>{{ error_message }}</strong></p>{% endif %}
+                </div>
+
+            </fieldset>
+        </form><br>
+
+        <form style="display:inline-block;" action={% url 'keys:results_record' %} method="POST"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset name="record" class="box">
+
+                <label for="record_file" class="text">Record and Download</label> <br>
+                <i class="fa fa-microphone" id="record_icon"></i>
+                <div class="record_form">
+                    <p class="text"><small id="time">0:00</small></p>
+
+                    <button type="button" id="recordButton" class="button">Start Recording</button>
+                    <button type="button" id="stopButton" class="button">Stop Recording</button>
+                    <audio id="player" controls></audio><br>
+                </div>
+
+
+            </fieldset>
+        </form>
     </div>
-    {% if error_message %}<p id="error_view"><strong>{{ error_message }}</strong></p>{% endif %}
+
 </body>
 <script>
     var audioURL
@@ -166,7 +197,23 @@
     const timeDisplay = document.getElementById('time');
     const recordButton = document.getElementById('recordButton');
     const stopButton = document.getElementById('stopButton')
-
+    function fileValidation() {
+        var fileInput =
+            document.getElementById('music_file');
+        var filePath = fileInput.value
+        var allowedExtensions =
+            /(\.mp3|\.wav|\.weba|\.ogg|\.webm)$/i;
+        if (fileInput.files[0].size > (2 * 1048576)) {
+            alert('Please choose a smaller audio file 30 seconds or less');
+            fileInput.value = '';
+            return false;
+        }
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type please use recorder or upload a wav,mp3,ogg or weba file');
+            fileInput.value = '';
+            return false;
+        } else { return true }
+    }
 
 
     const handleSuccess = function (stream) {
@@ -236,12 +283,12 @@
             const myFile = new File([blob], "myRecording.webm", {
                 type: blob.type,
             });
-            
+
             player.src = audioURL;
             player.style.display = 'block';
             var input_url = document.getElementById("audio_url")
             input_url.value = myFile;
-        
+
 
 
         }

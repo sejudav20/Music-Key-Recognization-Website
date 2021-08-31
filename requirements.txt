@@ -6,14 +6,7 @@ arrow==0.13.1
 astor==0.8.1
 async-generator==1.10
 atomicwrites==1.4.0
-attrs @ file:///tmp/build/80754af9/attrs_1620827162558/work
-autopep8 @ file:///tmp/build/80754af9/autopep8_1596578164842/work
-Babel @ file:///tmp/build/80754af9/babel_1620871417480/work
-backcall @ file:///home/ktietz/src/ci/backcall_1611930011877/work
-bcrypt @ file:///C:/ci/bcrypt_1597918112552/work
-binaryornot @ file:///tmp/build/80754af9/binaryornot_1617751525010/work
 black==19.10b0
-bleach @ file:///tmp/build/80754af9/bleach_1626470256873/work
 blinker==1.4
 brotlipy==0.7.0
 cached-property @ file:///tmp/build/80754af9/cached-property_1600785575025/work

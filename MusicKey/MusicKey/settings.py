@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import mimetypes
 import django_heroku
-import keys.cred as cred
 
 mimetypes.add_type("text/css", ".css", True)
 
@@ -26,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = '$m^#s=q@z-7_^4acf9ie*(-ne9)$mng*hv1t_*bwn^xrz_8d&z'
-SECRET_KEY = cred.SECRET_KEY
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")

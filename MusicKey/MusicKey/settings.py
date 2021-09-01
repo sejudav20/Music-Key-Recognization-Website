@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import mimetypes
 import django_heroku
-import cred
+import keys.cred as cred
 
 mimetypes.add_type("text/css", ".css", True)
 

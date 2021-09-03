@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ["https://music-key-recog.herokuapp.com/"]
 # Application definition
 
 INSTALLED_APPS = [
-    'keys.apps.KeysConfig',
+    'MusicKey.keys.apps.KeysConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -107,7 +107,6 @@ prompt-toolkit==3.0.17
 protobuf==3.17.2
 psutil==5.8.0
 psycopg2==2.9.1
-psycopg2-binary==2.91
 ptyprocess==0.7.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
